@@ -5,6 +5,7 @@ import 'package:login/auth/paymentsevice.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:login/dash_board_user/map.dart';
 import 'package:login/dash_board_user/wastetype.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PaymentAndAddressScreen extends StatefulWidget {
   final List<Map<String, dynamic>> selectedWasteTypes;
@@ -87,7 +88,7 @@ class _PaymentAndAddressScreenState extends State<PaymentAndAddressScreen> {
                   const SizedBox(height: 16.0),
                   Text(
                     'Confirm Address',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const SizedBox(height: 16.0),
                   TextField(
@@ -122,7 +123,9 @@ class _PaymentAndAddressScreenState extends State<PaymentAndAddressScreen> {
                       ).then((value) {
                         if (value != null) {
                           setState(() {
-                            mapController.text = value; // Update map data
+                            LatLng location = value as LatLng;
+                            mapController.text =
+                                '${location.latitude}, ${location.longitude}';
                           });
                         }
                       });
