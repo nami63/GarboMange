@@ -46,15 +46,17 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1061712842866',
     projectId: 'garbomanage',
     authDomain: 'garbomanage.firebaseapp.com',
+    databaseURL: 'https://garbomanage-default-rtdb.firebaseio.com',
     storageBucket: 'garbomanage.appspot.com',
     measurementId: 'G-6QZT5682SD',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBC0YckVkwjWj31OW8gIUObSu9nBZvSfuI',
-    appId: '1:1061712842866:android:29db9ec02f64fe728a32eb',
+    appId: '1:1061712842866:android:a93e792e4ca15e5c8a32eb',
     messagingSenderId: '1061712842866',
     projectId: 'garbomanage',
+    databaseURL: 'https://garbomanage-default-rtdb.firebaseio.com',
     storageBucket: 'garbomanage.appspot.com',
   );
 
@@ -63,6 +65,7 @@ class DefaultFirebaseOptions {
     appId: '1:1061712842866:ios:b8749a8adcea26ca8a32eb',
     messagingSenderId: '1061712842866',
     projectId: 'garbomanage',
+    databaseURL: 'https://garbomanage-default-rtdb.firebaseio.com',
     storageBucket: 'garbomanage.appspot.com',
     iosBundleId: 'com.example.login',
   );
@@ -72,6 +75,7 @@ class DefaultFirebaseOptions {
     appId: '1:1061712842866:ios:b8749a8adcea26ca8a32eb',
     messagingSenderId: '1061712842866',
     projectId: 'garbomanage',
+    databaseURL: 'https://garbomanage-default-rtdb.firebaseio.com',
     storageBucket: 'garbomanage.appspot.com',
     iosBundleId: 'com.example.login',
   );
@@ -82,7 +86,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1061712842866',
     projectId: 'garbomanage',
     authDomain: 'garbomanage.firebaseapp.com',
+    databaseURL: 'https://garbomanage-default-rtdb.firebaseio.com',
     storageBucket: 'garbomanage.appspot.com',
     measurementId: 'G-1CCPWKV7Q9',
   );
+
 }

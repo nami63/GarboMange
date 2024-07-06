@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1061712842866",
+    "firebase_url": "https://garbomanage-default-rtdb.firebaseio.com",
     "project_id": "garbomanage",
     "storage_bucket": "garbomanage.appspot.com"
   },
@@ -10,6 +11,25 @@
         "mobilesdk_app_id": "1:1061712842866:android:29db9ec02f64fe728a32eb",
         "android_client_info": {
           "package_name": "com.example.login"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC0YckVkwjWj31OW8gIUObSu9nBZvSfuI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061712842866:android:a93e792e4ca15e5c8a32eb",
+        "android_client_info": {
+          "package_name": "com.your.package.name"
         }
       },
       "oauth_client": [],
