@@ -80,7 +80,7 @@ class _PassState extends State<APass> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              const adlog()), // Define Succadreg
+                              const AdLog()), // Define Succadreg
                     );
                   },
                   child: const Center(

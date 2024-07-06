@@ -67,7 +67,7 @@ class _WorkerHomePageState extends State<WorkerHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TaskListPage()),
+                              builder: (context) => ViewTaskPage()),
                         );
                       },
                       child: Text('View Tasks'),

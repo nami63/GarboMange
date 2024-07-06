@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login/admin/adminworker.dart';
 import 'package:login/auth/adminlogin.dart';
 import 'package:login/user/main1.dart';
+import 'package:login/user/pass.dart';
 
 class WorkerLog extends StatefulWidget {
   const WorkerLog({super.key});
@@ -113,7 +113,7 @@ class _WorkerLogState extends State<WorkerLog> {
               TextButton(
                 onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => WorkerPage()),
+                  MaterialPageRoute(builder: (context) => Pass()),
                 ),
                 child: const Text(
                   "Forgot Password?",

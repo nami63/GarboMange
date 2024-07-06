@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login/user/main1.dart';
 
 class Pass extends StatefulWidget {
-  const Pass({super.key});
+  const Pass({Key? key}) : super(key: key);
 
   @override
   State<Pass> createState() => _PassState();
@@ -48,7 +48,7 @@ class _PassState extends State<Pass> {
                         margin: const EdgeInsets.only(top: 50),
                         child: const Center(
                           child: Text(
-                            "Forgot Passowrd",
+                            "Forgot Password",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
@@ -76,11 +76,14 @@ class _PassState extends State<Pass> {
                 ),
                 child: TextButton(
                   onPressed: () {
+                    // Handle password reset functionality
+                    // This is where you would implement the logic
+                    // to reset the password using Firebase or any other service
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              const UserLogin()), // Define Succadreg
+                        builder: (context) => const UserLogin(),
+                      ),
                     );
                   },
                   child: const Center(
