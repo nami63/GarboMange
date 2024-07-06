@@ -2,30 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TaskListPage extends StatelessWidget {
+  const TaskListPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Task List'),
+        title: const Text('Task List'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('tasks').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('No tasks found'));
+            return const Center(child: Text('No tasks found'));
           }
 
           // Filter out completed tasks
-          var tasks = snapshot.data!.docs
-              .where((task) => task['completed'] != true)
-              .toList();
+          var tasks = snapshot.data!.docs.where((task) {
+            var data = task.data() as Map<String, dynamic>;
+            return data.containsKey('completed') && data['completed'] != true;
+          }).toList();
 
           if (tasks.isEmpty) {
-            return Center(child: Text('No tasks found'));
+            return const Center(child: Text('No tasks found'));
           }
 
           return ListView.builder(
@@ -41,18 +44,22 @@ class TaskListPage extends StatelessWidget {
   }
 
   Widget _buildTaskCard(BuildContext context, DocumentSnapshot task) {
+    var data = task.data() as Map<String, dynamic>;
+
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       elevation: 4,
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Address: ${task['address']}'),
-            SizedBox(height: 8),
-            Text('Created At: ${_formatTimestamp(task['createdAt'])}'),
-            SizedBox(height: 16),
+            Text('Address: ${data['address']}'),
+            const SizedBox(height: 8),
+            Text('Created At: ${_formatTimestamp(data['createdAt'])}'),
+            const SizedBox(height: 16),
+            _buildChecklist(task),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -63,17 +70,7 @@ class TaskListPage extends StatelessWidget {
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.green),
                   ),
-                  child: Text('Mark as Complete'),
-                ),
-                SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    _markTaskNotComplete(context, task.id);
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.red),
-                  ),
-                  child: Text('Mark as Not Complete'),
+                  child: const Text('Mark as Complete'),
                 ),
               ],
             ),
@@ -81,6 +78,37 @@ class TaskListPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildChecklist(DocumentSnapshot task) {
+    var data = task.data() as Map<String, dynamic>;
+    List<dynamic> checklist = data['checklist'];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: checklist.map((item) {
+        return CheckboxListTile(
+          title: Text(item['title']),
+          value: item['checked'],
+          onChanged: (value) {
+            _updateChecklist(task.id, item['title'], value!);
+          },
+        );
+      }).toList(),
+    );
+  }
+
+  void _updateChecklist(String taskId, String title, bool checked) {
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentReference taskRef =
+          FirebaseFirestore.instance.collection('tasks').doc(taskId);
+      DocumentSnapshot snapshot = await transaction.get(taskRef);
+      var data = snapshot.data() as Map<String, dynamic>;
+      List<dynamic> checklist = data['checklist'];
+      int index = checklist.indexWhere((item) => item['title'] == title);
+      checklist[index]['checked'] = checked;
+      transaction.update(taskRef, {'checklist': checklist});
+    });
   }
 
   String _formatTimestamp(Timestamp timestamp) {
@@ -129,44 +157,12 @@ class TaskListPage extends StatelessWidget {
     FirebaseFirestore.instance.collection('tasks').doc(taskId).update({
       'completed': true,
     }).then((value) {
-      // Update user's task completion status in 'users' collection
-      FirebaseFirestore.instance.collection('users').doc(taskId).update({
-        'task_completed': true,
-      }).then((_) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Task marked as complete')),
-        );
-      }).catchError((error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to update user task status')),
-        );
-      });
-    }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to mark task as complete')),
+        const SnackBar(content: Text('Task marked as complete')),
       );
-    });
-  }
-
-  void _markTaskNotComplete(BuildContext context, String taskId) {
-    FirebaseFirestore.instance.collection('tasks').doc(taskId).update({
-      'completed': false,
-    }).then((value) {
-      // Update user's task completion status in 'users' collection
-      FirebaseFirestore.instance.collection('users').doc(taskId).update({
-        'task_completed': false,
-      }).then((_) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Task marked as not complete')),
-        );
-      }).catchError((error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to update user task status')),
-        );
-      });
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to mark task as not complete')),
+        const SnackBar(content: Text('Failed to mark task as complete')),
       );
     });
   }

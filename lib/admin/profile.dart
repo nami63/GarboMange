@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:login/auth/register.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -14,7 +13,6 @@ class _ProfilePageState extends State<ProfilePage> {
   final AuthService _authService = AuthService();
   User? user = FirebaseAuth.instance.currentUser;
   Map<String, dynamic>? userData;
-  bool? taskCompleted;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -37,8 +35,6 @@ class _ProfilePageState extends State<ProfilePage> {
         _addressController.text = userData!['address'];
         _stateController.text = userData!['state'];
         _pinCodeController.text = userData!['pinCode'];
-        taskCompleted =
-            userData!['task_completed']; // Fetch task completion status
       }
       setState(() {});
     }
@@ -63,53 +59,157 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     if (userData == null) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile Page'),
-      ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Name'),
-            ),
-            TextField(
-              controller: _phoneController,
-              decoration: const InputDecoration(labelText: 'Phone Number'),
-            ),
-            TextField(
-              controller: _addressController,
-              decoration: const InputDecoration(labelText: 'Address'),
-            ),
-            TextField(
-              controller: _stateController,
-              decoration: const InputDecoration(labelText: 'State'),
-            ),
-            TextField(
-              controller: _pinCodeController,
-              decoration: const InputDecoration(labelText: 'Pin Code'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: updateUserData,
-              child: const Text('Update Profile'),
-            ),
-            if (taskCompleted != null)
-              Text(
-                taskCompleted! ? 'Task Completed' : 'Task Not Completed',
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const SizedBox(height: 40), // To add some space at the top
+              const Text(
+                'Profile Page',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: taskCompleted! ? Colors.green : Colors.red,
                 ),
               ),
-          ],
+              const SizedBox(height: 20),
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: const Color.fromARGB(255, 107, 100, 237),
+                child: Icon(
+                  Icons.person,
+                  size: 50,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 107, 100, 237),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                  child: TextField(
+                    controller: _nameController,
+                    textAlign: TextAlign.center,
+                    decoration: const InputDecoration(
+                      labelText: 'Name',
+                      labelStyle: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white,
+                      ),
+                      border: InputBorder.none,
+                      alignLabelWithHint: true,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 107, 100, 237),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                  child: TextField(
+                    controller: _phoneController,
+                    textAlign: TextAlign.center,
+                    decoration: const InputDecoration(
+                      labelText: 'Phone Number',
+                      labelStyle: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white,
+                      ),
+                      border: InputBorder.none,
+                      alignLabelWithHint: true,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 107, 100, 237),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                  child: TextField(
+                    controller: _addressController,
+                    textAlign: TextAlign.center,
+                    decoration: const InputDecoration(
+                      labelText: 'Address',
+                      labelStyle: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white,
+                      ),
+                      border: InputBorder.none,
+                      alignLabelWithHint: true,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 107, 100, 237),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                  child: TextField(
+                    controller: _stateController,
+                    textAlign: TextAlign.center,
+                    decoration: const InputDecoration(
+                      labelText: 'State',
+                      labelStyle: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white,
+                      ),
+                      border: InputBorder.none,
+                      alignLabelWithHint: true,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 107, 100, 237),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                  child: TextField(
+                    controller: _pinCodeController,
+                    textAlign: TextAlign.center,
+                    decoration: const InputDecoration(
+                      labelText: 'Pin Code',
+                      labelStyle: TextStyle(
+                        fontSize: 18.0,
+                        color: Color.fromARGB(255, 140, 179, 252),
+                      ),
+                      border: InputBorder.none,
+                      alignLabelWithHint: true,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: updateUserData,
+                child: const Text('Update Profile'),
+              ),
+            ],
+          ),
         ),
       ),
     );
