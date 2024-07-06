@@ -50,6 +50,7 @@ dependencies:
   geolocator: ^12.0.0
   google_maps_flutter_web: ^0.5.8
   geocoding: ^3.0.0
+  provider: 6.1.2
  
 
 
@@ -105,3 +106,20 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+workerdependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^1.10.0
+  firebase_auth: ^3.3.0
+  cloud_firestore: ^3.1.5
+  geolocator: ^7.7.0
+  location: ^4.3.0
+  smooth_page_indicator: ^0.3.0
+
+admindependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^1.10.0
+  cloud_firestore: ^3.1.5

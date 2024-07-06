@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:login/admin/admin_dashborad.dart';
 import 'package:login/worker/worker_dashboard.dart';
 
 class AdminAuth {
@@ -22,6 +21,7 @@ class AdminAuth {
         if (userSnapshot.exists && userSnapshot.get('isAdmin') == true) {
           // Redirect to admin dashboard
           Navigator.pushReplacement(
+            // ignore: use_build_context_synchronously
             context,
             MaterialPageRoute(builder: (context) => addash()),
           );
@@ -94,4 +94,6 @@ class AdminAuth {
       );
     });
   }
+
+  addash() {}
 }

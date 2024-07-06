@@ -172,3 +172,30 @@ class _AdLogState extends State<AdLog> {
     );
   }
 }
+
+/*import 'package:flutter/material.dart';
+import 'package:login/admin/admin_login.dart';
+import 'package:login/admin/adminworker.dart';
+import 'package:login/admin/customer.dart';
+import 'package:login/admin/profile.dart';
+import 'package:login/admin/addash.dart'; // Ensure this import
+
+class AdminAuth extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Admin Login')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Addash()),
+            );
+          },
+          child: const Text('Login as Admin'),
+        ),
+      ),
+    );
+  }
+}*/
