@@ -94,6 +94,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Firebase](https://firebase.google.com/)
 - [Google Maps API](https://developers.google.com/maps/documentation)
 
+- ![Demo GIF](https://drive.google.com/file/d/1zludHPh24Irypk44oHMetayiBGBsmF81/view?usp=sharing)
+
+
 ## Contact
 
 For any inquiries or feedback, please contact Namitha, Shriya, and Riya.
